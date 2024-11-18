@@ -45,3 +45,10 @@ export async function refresh(refreshToken: string): Promise<string> {
     throw { message: "Invalid refresh token", code: 401 };
   }
 }
+
+export async function deleteUser(id: number) {
+  const user = await db.selectOne<User>("SELECT * FROM users WHERE id = ?", id);
+  if (!user) throw { message: "User not found", code: 404 };
+  await db.delete("DELETE FROM users WHERE id = ?", id);
+  return { message: "User deleted successfully" };
+}
