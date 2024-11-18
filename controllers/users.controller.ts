@@ -1,3 +1,8 @@
+/**
+ * Handles user authentication and authorization
+ * @namespace controllers/users
+ */
+
 import { login, register, refresh } from "../models/users.model";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -9,6 +14,13 @@ type LoginReqBody = {
   password: string;
 };
 
+type UserRegister = {
+  firstname: string;
+  lastname: string;
+  phone: string;
+  email: string;
+  password: string;
+};
 export default {
   login: async (req: Req<LoginReqBody>, res: Res) => {
     const user = await login(req.body.email, req.body.password);
@@ -27,16 +39,30 @@ export default {
 
     // Optionally store refresh token in a secure location (e.g., database or cache)
 
-    res.json({
-      user,
-      accessToken,
-      refreshToken, // Send refresh token to client
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true, // Prevent client-side access to the cookie
+      secure: process.env.NODE_ENV === "production", // Use HTTPS in production
+      sameSite: "strict", // Prevent CSRF attacks
+      maxAge: 900 * 1000, // 1 hour
     });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true, // Prevent client-side access to the cookie
+      secure: process.env.NODE_ENV === "production", // Use HTTPS in production
+      sameSite: "strict", // Prevent CSRF attacks
+      maxAge: 24 * 60 * 60 * 1000, // 1 week
+    });
+
+    res.json({ user });
   },
+  /**
+   * @function register
+   * @description Handles user registration
+   */
   register: async (
     {
       body: { firstname, lastname, phone, email, password },
-    }: Req<any, UserRegister>,
+    }: Req<UserRegister>,
     res: Res
   ) => {
     const user = await register({
@@ -48,8 +74,12 @@ export default {
     });
     res.json(user);
   },
+  /**
+   * @function refresh
+   * @description Handles token refresh
+   */
   refresh: async (
-    { body: { refreshToken } }: Req<any, { refreshToken: string }>,
+    { body: { refreshToken } }: Req<{ refreshToken: string }>,
     res: Res
   ) => {
     if (!refreshToken) throw { message: "Missing refresh token", code: 400 };

@@ -42,7 +42,7 @@ Content-Type: application/json
 {
 	"firstname": "ttteeeest",
 	"lastname": "from rest client",
-	"email": "ahhherewego@go.com",
+	"email": "ahherewego@go.com",
 	"password": "cdsfes232",
 	"phone": "36304443453"
 }
