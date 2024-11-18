@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "bun --watch app.ts",
-    "commit": "git add . && git commit -m \"$0\" && git push"
+    "commit": "git add . && git commit -m \"$1\" && git push"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
