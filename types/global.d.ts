@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction, Express as Exp } from "express";
 
 declare global {
-  interface Req<B = any, T = any> extends Request<any, any, T> {}
+  interface Req<T = any> extends Request<any, any, T> {
+    user?: TokenVerified;
+  }
   interface Res extends Response {}
   interface Next extends NextFunction {}
   type Express = Exp;
