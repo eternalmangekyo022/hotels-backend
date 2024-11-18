@@ -83,7 +83,13 @@ export default {
     res: Res
   ) => {
     if (!refreshToken) throw { message: "Missing refresh token", code: 400 };
-    res.json({ accessToken: await refresh(refreshToken) });
+    res.cookie("accessToken", await refresh(refreshToken), {
+      httpOnly: true,
+      maxAge: 900 * 1000,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+    res.send();
   },
 };
 

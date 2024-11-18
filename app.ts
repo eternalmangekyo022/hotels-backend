@@ -21,7 +21,7 @@ api.use(
 );
 api.use(e.json());
 
-const excludeToken = ["register", "login"];
+const excludeToken = ["register", "login", "refresh"];
 
 const reg = `^(?!.*(${excludeToken.join("|")})).*`;
 // ^(?!.*(${excludeList.join("|")})).*
