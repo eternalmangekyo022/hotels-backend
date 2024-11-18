@@ -1,0 +1,48 @@
+@base=http://localhost:3000/api/v1
+@access=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbmV6b2x0YW5jaW1lQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MzE5NTE4NjgsImV4cCI6MTczMTk1MTg4M30.8xSpKLN0tHnvqkBIsUVjw15VYwl5ktdEQRueYymxhWE
+@refresh=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbmV6b2x0YW5jaW1lQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MzE5NTQzMTYsImV4cCI6MTczMjU1OTExNn0.ZSpo0D7MKdmLU765W8_ZX6nnMkhN4aGkoJSKe5JfD-0
+### correct login
+POST {{base}}/login
+Content-Type: application/json
+
+{
+	"email": "benezoltancime@gmail.com",
+	"password": "admin123"
+}
+
+###wrong password
+
+POST {{base}}/login
+Content-Type: application/json
+
+{
+	"email": "benezoltancime@gmail.com",
+	"password": "wrongpassword123"
+}
+
+###wrong user
+
+POST {{base}}/login
+Content-Type: application/json
+
+{
+	"email": "wrongemail@gmail.com",
+	"password": "wrongpassword123"
+}
+
+###
+
+GET {{base}}/hotels
+Authorization: Bearer {{access}}
+
+###
+POST {{base}}/register
+Content-Type: application/json
+
+{
+	"firstname": "ttteeeest",
+	"lastname": "from rest client",
+	"email": "ahhherewego@go.com",
+	"password": "cdsfes232",
+	"phone": "36304443453"
+}
