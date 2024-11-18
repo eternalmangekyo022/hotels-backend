@@ -9,19 +9,14 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: "./.env" });
 
-type LoginReqBody = {
-  email: string;
-  password: string;
-};
-
-type UserRegister = {
-  firstname: string;
-  lastname: string;
-  phone: string;
-  email: string;
-  password: string;
-};
-export async function login(req: Req<LoginReqBody>, res: Res) {
+/**
+ * @function login
+ * @description Handles user login
+ */
+export async function login(
+  req: Req<{ email: string; password: string }>,
+  res: Res
+) {
   const user = await model.login(req.body.email, req.body.password);
 
   const accessToken = jwt.sign(
@@ -60,7 +55,15 @@ export async function login(req: Req<LoginReqBody>, res: Res) {
  * @description Handles user registration
  */
 export async function register(
-  { body: { firstname, lastname, phone, email, password } }: Req<UserRegister>,
+  {
+    body: { firstname, lastname, phone, email, password },
+  }: Req<{
+    firstname: string;
+    lastname: string;
+    phone: string;
+    email: string;
+    password: string;
+  }>,
   res: Res
 ) {
   const user = await model.register({
@@ -90,24 +93,16 @@ export async function refresh(
   });
   res.send();
 }
-// HTTP 400 codes
-// https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#client_error_responses
-// 400 Bad Request
-// 401 Unauthorized
-// 402 Payment Required
-// 403 Forbidden
-// 404 Not Found
-// 405 Method Not Allowed
-// 406 Not Acceptable
-// 407 Proxy Authentication Required
-// 408 Request Timeout
-// 409 Conflict
-// 410 Gone
-// 411 Length Required
-// 412 Precondition Failed
-// 413 Payload Too Large
-// 414 URI Too Long
-// 415 Unsupported Media Type
-// 416 Range Not Satisfiable
-// 417 Expectation Failed
-// 418 I'm a teapot
+
+export async function deleteUser(
+  req: Req<{ params: { userId: string } }>,
+  res: Res
+) {
+  const {
+    params: { userId },
+  } = req;
+  if (userId !== req.user?.id.toString())
+    throw { message: "Unauthorized", code: 401 };
+  await model.deleteUser(parseInt(userId));
+  res.status(204).header("Content-Length", "0").send();
+}
