@@ -113,4 +113,4 @@ export default {
 // 415 Unsupported Media Type
 // 416 Range Not Satisfiable
 // 417 Expectation Failed
-// 418 I'm a teapot (this is a real status code, courtesy of IETF April Fool's joke in 1998)
+// 418 I'm a teapot

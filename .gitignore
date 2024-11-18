@@ -131,7 +131,6 @@ dist
 # vuepress build output
 
 .vuepress/dist
-.rest
 # vuepress v2.x temp and cache directory
 
 .temp
@@ -173,3 +172,7 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
+
+#.rest
+
+.rest
