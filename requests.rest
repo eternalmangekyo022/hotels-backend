@@ -1,5 +1,5 @@
 @base=http://localhost:3000/api/v1
-@access=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbmV6b2x0YW5jaW1lQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MzE5NTE4NjgsImV4cCI6MTczMTk1MTg4M30.8xSpKLN0tHnvqkBIsUVjw15VYwl5ktdEQRueYymxhWE
+@access=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbmV6b2x0YW5jaW1lQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MzE5NzA1NzcsImV4cCI6MTczMTk3MTQ3N30.H1_FV5VEGfY52DoVso7k2pkucPDQS7nqSolgljmeZyc
 @refresh=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbmV6b2x0YW5jaW1lQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MzE5NTQzMTYsImV4cCI6MTczMjU1OTExNn0.ZSpo0D7MKdmLU765W8_ZX6nnMkhN4aGkoJSKe5JfD-0
 ### correct login
 POST {{base}}/login
@@ -54,3 +54,7 @@ Content-Type: application/json
 {
 	"refreshToken": "{{refresh}}"
 }
+
+###
+DELETE {{base}}/user/1
+Authorization: Bearer {{access}}

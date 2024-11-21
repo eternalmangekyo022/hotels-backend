@@ -94,6 +94,10 @@ export async function refresh(
   res.send();
 }
 
+/**
+ * @function deleteUser
+ * @description Handles user deletion
+ */
 export async function deleteUser(
   req: Req<{ params: { userId: string } }>,
   res: Res
@@ -101,8 +105,11 @@ export async function deleteUser(
   const {
     params: { userId },
   } = req;
+  // Check if the userId in the request matches the userId in the JWT
   if (userId !== req.user?.id.toString())
     throw { message: "Unauthorized", code: 401 };
+  // Call the deleteUser function from the model
   await model.deleteUser(parseInt(userId));
+  // Send a 204 response with an empty body
   res.status(204).header("Content-Length", "0").send();
 }

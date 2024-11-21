@@ -46,4 +46,10 @@ export default {
     const result = await query<T[]>(q, val);
     return result.length ? result[0] : null;
   },
+
+  delete: async <T = any>(q: string, val?: any): Promise<T> => {
+    if (!q.toLowerCase().includes("delete"))
+      throw { message: 'Query did not include keyword "delete".' };
+    return await query<T>(q, val);
+  },
 };
