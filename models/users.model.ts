@@ -52,3 +52,13 @@ export async function deleteUser(id: number) {
   await db.delete("DELETE FROM users WHERE id = ?", id);
   return { message: "User deleted successfully" };
 }
+
+export async function patchUser(usr: UserPut) {
+  const user = await db.patch("update users SET ? where id = ?", [usr, usr.id]);
+  console.log(user);
+}
+
+export async function getUsers() {
+  const res = await db.select("SELECT * FROM users limit 30");
+  return res;
+}

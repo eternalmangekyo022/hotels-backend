@@ -113,3 +113,25 @@ export async function deleteUser(
   // Send a 204 response with an empty body
   res.status(204).header("Content-Length", "0").send();
 }
+
+export async function patchUser(
+  req: Req<{ params: { userId: string }; body: Omit<UserPut, "id"> }>,
+  res: Res
+) {
+  const {
+    params: { userId },
+    body,
+  } = req;
+  // Check if the userId in the request matches the userId in the JWT
+  if (userId !== req.user?.id.toString())
+    throw { message: "Unauthorized", code: 401 };
+  // Call the patchUser function from the model
+  await model.patchUser({ ...body, id: parseInt(userId) });
+  // Send a 204 response with an empty body
+  res.status(204).header("Content-Length", "0").send();
+}
+
+export async function getUsers(req: Req, res: Res) {
+  const users = await model.getUsers();
+  res.json(users);
+}

@@ -6,7 +6,14 @@ declare global {
   }
   interface Res extends Response {}
   interface Next extends NextFunction {}
+  type UserUpdated = Omit<User, "registered" | "email" | "permission"> & {
+    newPassword: string;
+  };
   type Express = Exp;
+
+  type UserPut = { [key in keyof Omit<User, "id">]?: User[key] } & {
+    id: number;
+  };
 
   interface Err {
     message: string;

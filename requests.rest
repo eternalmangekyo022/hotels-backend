@@ -56,5 +56,18 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{base}}/user/1
+DELETE {{base}}/users/1
 Authorization: Bearer {{access}}
+
+###
+GET {{base}}/users
+
+###
+PATCH {{base}}/users/1
+Content-Type: application/json
+Authorization: Bearer pankix
+
+{
+	"permissionId": 1,
+	"lastname": "Bene"
+}

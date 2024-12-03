@@ -9,10 +9,12 @@ export default (use: UseFn, app: Express) => {
 
   const userRouter = Router({ mergeParams: true });
   userRouter.delete("/:userId", use(users.deleteUser));
+  userRouter.patch("/:userId", use(users.patchUser));
+  userRouter.get("/", use(users.getUsers));
   //delete user
   //update user
   //get user
   //patch user
-  router.use("/user", userRouter);
+  router.use("/users", userRouter);
   app.use("/", router);
 };

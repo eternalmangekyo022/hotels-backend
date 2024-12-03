@@ -52,4 +52,20 @@ export default {
       throw { message: 'Query did not include keyword "delete".' };
     return await query<T>(q, val);
   },
+  patch: async <T = any>(
+    q: string,
+    val: any
+  ): Promise<T & { affectedRows: number }> => {
+    if (!q.toLowerCase().includes("update"))
+      throw { message: 'Query did not include keyword "update".' };
+    return await query<T & { affectedRows: number }>(q, val);
+  },
+  update: async <T = any>(
+    q: string,
+    val: any
+  ): Promise<T & { affectedRows: number }> => {
+    if (!q.toLowerCase().includes("update"))
+      throw { message: 'Query did not include keyword "update".' };
+    return await query<T & { affectedRows: number }>(q, val);
+  },
 };
