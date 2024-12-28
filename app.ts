@@ -25,14 +25,14 @@ const excludeToken = ["register", "login", "refresh"];
 
 const reg = `^(?!.*(${excludeToken.join("|")})).*`;
 // ^(?!.*(${excludeList.join("|")})).*
-const createPathRegex = () => new RegExp(reg);
-const excludedTokenPath = createPathRegex();
+const excludedTokenPath = new RegExp(reg);
 app.use(
   excludedTokenPath,
   (req: Req<{ headers: { authorization: string } }>, res: any, next) => {
     const {
       headers: { authorization },
     } = req;
+    console.log(req);
     if (!authorization)
       return res.status(401).json({ message: "Unauthorized" });
     const token = authorization && authorization.split(" ")[1];

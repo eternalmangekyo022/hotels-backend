@@ -131,6 +131,7 @@ export async function patchUser(
   res.status(204).header("Content-Length", "0").send();
 }
 
+// FOR DEVELOPMENT ONLY
 export async function getUsers(req: Req, res: Res) {
   const users = await model.getUsers();
   res.json(users);

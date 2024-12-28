@@ -54,8 +54,11 @@ export async function deleteUser(id: number) {
 }
 
 export async function patchUser(usr: UserPut) {
-  const user = await db.patch("update users SET ? where id = ?", [usr, usr.id]);
-  console.log(user);
+  const { affectedRows } = await db.patch("update users SET ? where id = ?", [
+    usr,
+    usr.id,
+  ]);
+  if (affectedRows === 0) throw { message: "User not found", code: 404 };
 }
 
 export async function getUsers() {
